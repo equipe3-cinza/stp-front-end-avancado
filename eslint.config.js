@@ -22,31 +22,22 @@ export default [
       "simple-import-sort": simpleImportSort
     },
     rules: {
-      "@stylistic/indent": [
-        "error",
-        2
-      ],
+      "@stylistic/indent": ["error", 2],
       "@stylistic/function-paren-newline": "off",
-      "@stylistic/padded-blocks": [
-        "error",
-        "never"
-      ],
-      "@stylistic/quote-props": [
-        "error",
-        "as-needed"
-      ],
-      "@stylistic/function-call-argument-newline": [
-        "error",
-        "consistent"
-      ],
-      "@stylistic/array-element-newline": [
-        "error",
-        "consistent"
-      ],
+      "@stylistic/padded-blocks": ["error", "never"],
+      "@stylistic/quote-props": ["error", "as-needed"],
+      "@stylistic/function-call-argument-newline": ["error", "consistent"],
+      "@stylistic/array-element-newline": ["error", "consistent"],
       "react/react-in-jsx-scope": "off",
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error"
     }
+  },
+  {
+    settings: {
+      react: {
+        version: "detect"
+      }
+    }
   }
 ];
-
