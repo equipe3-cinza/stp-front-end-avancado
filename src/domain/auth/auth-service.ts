@@ -2,13 +2,13 @@ import {User} from "./auth.ts";
 
 export interface AuthService {
   // eslint-disable-next-line no-unused-vars
-  authorize(username: string, password: string): Promise<User>;
+  authorize(login: string, password: string): Promise<User>;
 }
 
 export function createClientOnlyAuthService (): AuthService {
   return {
-    async authorize (username: string, password: string) {
-      if (username === "doctor-a" && password === "password") {
+    async authorize (login: string, password: string) {
+      if (login === "doctor-a" && password === "password") {
         return {
           kind: "User",
           personId: "doctor-a",
@@ -27,14 +27,14 @@ export function createClientOnlyAuthService (): AuthService {
 export function createAuthService (url: string = "/api/auth"): AuthService {
   // TODO Replace with auto-generated code
   return {
-    async authorize (username: string, password: string) {
+    async authorize (login: string, password: string) {
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          username,
+          login,
           password
         })
       });

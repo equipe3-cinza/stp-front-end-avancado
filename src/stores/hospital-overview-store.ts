@@ -17,16 +17,15 @@ export function createHospitalOverviewStore (hospitalService: HospitalService) {
 
   const loadUserHospital = async (user: AuthenticatedUser) => {
     const hospitalId = user.hospitalId;
-
-    hospitalService.setAuthorizationToken(user.accessToken);
     isLoading.value = true;
 
     try {
+      hospitalService.setAuthorizationToken(user.accessToken);
+
       hospital.value = await hospitalService.load(hospitalId);
       await listenAndApplyEvents(hospitalId);
     } catch (e) {
-      // TODO Handle the error
-      console.log(e);
+      console.error("Failed to load hospital:", e);
     } finally {
       isLoading.value = false;
     }

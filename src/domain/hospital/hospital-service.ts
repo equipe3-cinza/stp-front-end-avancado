@@ -71,7 +71,7 @@ export function createClientOnlyHospitalService (): HospitalService {
   };
 }
 
-export function createHospitalService (url: string = "/api/hospital") {
+export function createHospitalService (url: string = "/api/unidade"): HospitalService {
   let cachedToken: string | null = null;
 
   return {
@@ -80,13 +80,15 @@ export function createHospitalService (url: string = "/api/hospital") {
     },
 
     async load (id: HospitalId) {
+      if (!cachedToken) {
+        throw new Error("Authorization token not set");
+      }
+
       const response = await fetch(`${url}/${id}`, {
         method: "GET",
-        headers: cachedToken
-          ? {
-            Authorization: `Bearer ${cachedToken}`
-          }
-          : {}
+        headers: {
+          Authorization: `Bearer ${cachedToken}`
+        }
       });
 
       if (response.status !== 200) {
@@ -98,7 +100,7 @@ export function createHospitalService (url: string = "/api/hospital") {
 
     listen (id: HospitalId) {
       const hub = new HubConnectionBuilder().
-        withUrl(`/api/hubs/hospital/${id}`).
+        withUrl(`/api/unidade/${id}`).
         build();
 
       const hospitalEvents = new Subject<HospitalEvent>();
